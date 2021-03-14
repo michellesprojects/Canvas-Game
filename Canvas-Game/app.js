@@ -8,6 +8,13 @@ var x = canvas.width/2; /* bottom center of canvas */
 var y = canvas.height -30; 
 var dx = 2; /*rate of change of x*/
 var dy = -2; /*rate of change of y*/
+var ballRadius = 10;
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth) / 2;
+var rightPressed = false;
+var leftPressed = false;
+
 /*
 
 Drawing a Red Square, for reference 
@@ -22,15 +29,27 @@ ctx.closePath();
 
 function drawCircle(){
 
+
+
     ctx.beginPath();
     ctx.arc(
       x,
       y,
-      10,
+      ballRadius,
       0,
       360
     ); /* 360 == Math.PI, Documentation says last two params should be in radians, but degrees work the same ...  */
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#F991AA";
+    ctx.fill();
+    ctx.closePath();
+
+}
+
+function drawPaddle(){
+
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#CBFBBB"
     ctx.fill();
     ctx.closePath();
 
@@ -42,9 +61,24 @@ function draw() {
 
   /* Drawing a ball */
   drawCircle();
-  
-  x += dx;
+
+  /* if ball at top y of canvas
+  or
+  if ball at bottom of canvas, reverse its direction */
+if (y + dy < ballRadius || y + dy > canvas.height-ballRadius){ 
+    dy = -dy;
+}
+
+/* if ball at left x of canvas
+  or
+  if ball at right x of canvas, reverse its direction */
+if (x+dx > canvas.width-ballRadius || x+dx < ballRadius){
+    dx = -dx;
+}
+
+x += dx;
   y += dy;
 }
 
 setInterval(draw, 10); /*execute ctx function every 10 miliseconds*/
+

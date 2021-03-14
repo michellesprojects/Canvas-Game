@@ -17,7 +17,7 @@ var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
 
-var brickRowCount = 3;
+var brickRowCount = 7;
 var brickColumnCount = 5;
 var brickWidth = 75;
 var brickHeight = 20;
@@ -64,10 +64,22 @@ var bricks = [];
 for(var c=0; c<brickColumnCount; c++) { //iterate columns, create an empty array for each one
     bricks[c] = [];
     for(var r=0; r<brickRowCount; r++) { //iterate row
+        
         bricks[c][r] = { x: 0, y: 0, status: 1 };
+
+       //if(c == 0 || c == brickColumnCount -1){
+           // bricks[c][r] = null;
+       // }
     }
 }
 
+function gameWon(){
+
+    alert("YOU WIN!\n Score: "+score);
+    document.location.reload();
+    clearInterval(interval); // Needed for Chrome to end game
+
+}
 function collisionDetection() {
     for (var c = 0; c < brickColumnCount; c++) {
         for (var r = 0; r < brickRowCount; r++) {
@@ -77,6 +89,11 @@ function collisionDetection() {
                     dy = -dy;
                     b.status = 0;
                     score++;
+                }
+
+                if(score == brickColumnCount * brickRowCount){
+
+                    gameWon();
                 }
             }
         }
@@ -169,7 +186,7 @@ function draw() {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
     } else {
-      alert("GAME OVER");
+      alert("GAME OVER\n   Score: "+score);
       document.location.reload();
       clearInterval(interval); // Needed for Chrome to end game
     }

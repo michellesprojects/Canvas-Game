@@ -9,11 +9,14 @@ var y = canvas.height - 30;
 var dx = 2; /*rate of change of x*/
 var dy = -2; /*rate of change of y*/
 var ballRadius = 10;
+
 var paddleHeight = 10;
 var paddleWidth = 75;
 var paddleX = (canvas.width - paddleWidth) / 2;
+
 var rightPressed = false;
 var leftPressed = false;
+
 var brickRowCount = 3;
 var brickColumnCount = 5;
 var brickWidth = 75;
@@ -21,14 +24,17 @@ var brickHeight = 20;
 var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
+
 var playerColor = "#F997AF";
 var platformColor = "#97AFF9";
 var scoreColor = "#97AFF9";
+
 var score = 0;
 
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("mousemove", mouseMoveHandler,false );
 
 function keyDownHandler(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
@@ -46,6 +52,13 @@ function keyUpHandler(e) {
   }
 }
 
+function mouseMoveHandler(e){
+    var relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+        paddleX = relativeX - paddleWidth/2;
+    }
+
+}
 /* 2-d array filled with bricks for the ball to hit*/
 var bricks = [];
 for(var c=0; c<brickColumnCount; c++) { //iterate columns, create an empty array for each one

@@ -1,13 +1,13 @@
 /*most styling done in canvas*/
 
-#Canvas{
- /* border: 2px solid lightskyblue; */
- background: whitesmoke;
+#Canvas {
+  /* border: 2px solid lightskyblue; */
+  background: whitesmoke;
   padding-left: 0;
-    padding-right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width: 580px;
-    height: 420px;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 580px;
+  height: 420px;
 }
